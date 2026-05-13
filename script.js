@@ -467,6 +467,22 @@ const app = {
     this.goToScene(1);
   },
 
+  // ===== MUSIC =====
+  toggleMusic() {
+    const audio = document.getElementById("bgMusic");
+    const icon = document.getElementById("musicIcon");
+    if (!audio) return;
+    audio.loop = true;
+    if (audio.paused) {
+      audio.play().then(() => {
+        icon.textContent = "🔊";
+      }).catch(() => {});
+    } else {
+      audio.pause();
+      icon.textContent = "🔇";
+    }
+  },
+
   // ===== INIT =====
   init() {
     this.startLoading();
@@ -480,6 +496,12 @@ const app = {
         c.height = window.innerHeight;
       }
     });
+    // Fix mobile viewport height
+    const setVH = () => {
+      document.documentElement.style.setProperty('--vh', window.innerHeight + 'px');
+    };
+    setVH();
+    window.addEventListener('resize', setVH);
   },
 };
 
